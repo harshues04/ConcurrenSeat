@@ -1,0 +1,48 @@
+# Render Blueprint: deploys the backend stack (API + Postgres + Redis).
+# The frontend deploys separately on Vercel (import the repo, root dir
+# `frontend/`, set VITE_API_URL to this API's public URL).
+#
+# One-time setup after clicking "New > Blueprint" in the Render dashboard and
+# pointing it at this repo:
+#   1. Set ANTHROPIC_API_KEY on the backend service (marked sync: false below).
+#   2. Add the Vercel frontend origin (https://<project>.vercel.app) to
+#      CORS_ORIGINS below, then redeploy.
+#   3. Seed a demo event from the backend service's Shell tab:
+#        python -m app.db.seed
+
+services:
+  - type: web
+    name: concurrenseat-api
+    runtime: docker
+    plan: free
+    rootDir: backend
+    # Migrations run before the app boots; Render injects PORT.
+    dockerCommand: sh -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    healthCheckPath: /health
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: concurrenseat-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: keyvalue
+          name: concurrenseat-redis
+          property: connectionString
+      - key: ANTHROPIC_API_KEY
+        sync: false # set in the dashboard; never in the repo
+      - key: ANTHROPIC_MODEL
+        value: claude-opus-4-8
+      - key: DEFAULT_STRATEGY
+        value: optimistic
+      - key: CORS_ORIGINS
+        value: http://localhost:5173 # + the Vercel origin (step 2)
+
+  - type: keyvalue
+    name: concurrenseat-redis
+    plan: free
+    ipAllowList: [] # internal connections only
+
+databases:
+  - name: concurrenseat-db
+    plan: free
