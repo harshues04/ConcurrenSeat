@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type SubmitEvent } from "react";
 import { ask } from "./api/client";
 
 export function FaqWidget({ eventId }: { eventId: string }) {
@@ -7,7 +7,7 @@ export function FaqWidget({ eventId }: { eventId: string }) {
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
-  const submit = async (e: React.FormEvent) => {
+  const submit = async (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!question.trim() || busy) return;
     setBusy(true);
@@ -24,8 +24,8 @@ export function FaqWidget({ eventId }: { eventId: string }) {
   };
 
   return (
-    <section className="card">
-      <h2>Questions?</h2>
+    <section className="panel" id="faq">
+      <h2>Questions about this sale?</h2>
       <form onSubmit={submit} className="faq-form">
         <input
           value={question}

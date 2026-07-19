@@ -1,16 +1,37 @@
 :root {
-  --sans: system-ui, "Segoe UI", Roboto, sans-serif;
-  font: 16px/1.5 var(--sans);
+  --sans: "Segoe UI", system-ui, Roboto, "Helvetica Neue", sans-serif;
+  font: 16px/1.55 var(--sans);
   color-scheme: light dark;
-  color: #0b0b0b;
-  background: #f9f9f7;
+
+  --ink: #14181f;
+  --ink-soft: #5b6472;
+  --page: #f2f4f7;
+  --surface: #ffffff;
+  --line: rgba(20, 24, 31, 0.1);
+  --accent: #1f6ce8;
+  --accent-down: #1558c4;
+  --nav: #0c1322;
+  --good: #0c7a3d;
+  --warn: #b25e00;
+  --bad: #c92f34;
+
+  color: var(--ink);
+  background: var(--page);
   -webkit-font-smoothing: antialiased;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    color: #ffffff;
-    background: #0d0d0d;
+    --ink: #eceef2;
+    --ink-soft: #9aa3b0;
+    --page: #0d1017;
+    --surface: #161b26;
+    --line: rgba(236, 238, 242, 0.12);
+    --accent: #3d82f0;
+    --accent-down: #2a6ede;
+    --good: #35b36b;
+    --warn: #e0a13f;
+    --bad: #ef6a6e;
   }
 }
 
@@ -19,8 +40,10 @@ body {
 }
 
 h1,
-h2 {
-  font-weight: 600;
+h2,
+h3 {
+  font-weight: 650;
+  margin: 0;
 }
 
 code {
