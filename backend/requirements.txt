@@ -1,0 +1,17 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+alembic
+psycopg2-binary
+redis
+pydantic
+pydantic-settings
+python-dotenv
+anthropic
+websockets
+pytest
+pytest-asyncio
+pytest-cov
+httpx
+locust
+matplotlib
