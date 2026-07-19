@@ -1,0 +1,32 @@
+:root {
+  --sans: system-ui, "Segoe UI", Roboto, sans-serif;
+  font: 16px/1.5 var(--sans);
+  color-scheme: light dark;
+  color: #0b0b0b;
+  background: #f9f9f7;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color: #ffffff;
+    background: #0d0d0d;
+  }
+}
+
+body {
+  margin: 0;
+}
+
+h1,
+h2 {
+  font-weight: 600;
+}
+
+code {
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 0.85em;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(128, 128, 128, 0.15);
+}
